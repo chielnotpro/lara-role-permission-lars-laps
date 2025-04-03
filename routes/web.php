@@ -37,3 +37,14 @@ Route::middleware(['auth'])->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+
+
+
+
+Route::group(['middleware' =>['auth, role:admin|super_admin|editor']], function(){
+    Route::resource('post', PostController::class)->names('post');
+    Route::resource('users', UserController::class)->names('users');
+    Route::resource('roles', RoleController::class)->names('roles');
+    Route::resource('permission', PermissionController::class)->names('permission');
+});
